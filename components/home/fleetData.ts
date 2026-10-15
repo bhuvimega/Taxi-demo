@@ -1,0 +1,32 @@
+export const fleetData = [
+  {
+    name: "Sedan",
+    models: "Swift Dzire, Toyota Etios",
+    price: "from ₹13/km",
+    seats: 4,
+    bags: 2,
+    image: "/images/fleet-sedan.jpg",
+    imageAlt: "White sedan driving on a wet highway",
+    href: "#",
+  },
+  {
+    name: "SUV",
+    models: "Maruti Ertiga, Kia Carens",
+    price: "from ₹17/km",
+    seats: 6,
+    bags: 4,
+    image: "/images/fleet-suv.jpg",
+    imageAlt: "Car on a mountain highway at sunset",
+    href: "#",
+  },
+  {
+    name: "Premium SUV",
+    models: "Innova Crysta, Toyota Hycross",
+    price: "from ₹22/km",
+    seats: 7,
+    bags: 5,
+    image: "/images/fleet-premium-suv.jpg",
+    imageAlt: "Traveller enjoying the open road from a car window",
+    href: "#",
+  },
+];

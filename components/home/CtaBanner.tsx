@@ -1,0 +1,37 @@
+import Link from "next/link";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import SectionHeading from "@/components/common/SectionHeading";
+
+export default function CtaBanner() {
+  return (
+    <section className="section section-brand">
+      <div className="site-container">
+        <div className="rounded-3xl border border-on-brand px-6 py-12 text-center sm:py-16">
+          <SectionHeading
+            align="center"
+            title="Ready for your next journey?"
+            description="Lock a guaranteed, all-inclusive fare in seconds — free cancellation up to 6 hours before pickup."
+          />
+
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href="/#"
+              className="btn btn-highlight btn-pill flex h-12 w-full items-center justify-center gap-2 px-6 sm:w-auto"
+            >
+              Book a Cab
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+
+            <Link
+              href="/#"
+              className="btn btn-light btn-pill flex h-12 w-full items-center justify-center gap-2 px-6 sm:w-auto"
+            >
+              Explore Routes
+              <ChevronRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
