@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeftRight,
@@ -150,6 +150,31 @@ export default function BookingForm() {
     tab: "one-way",
     items: {},
   });
+  useEffect(() => {
+    const updateMinimumDates = () => {
+      const now = new Date();
+      const today = localISO(now, false);
+      const currentDateTime = localISO(now, true);
+
+      document
+        .querySelectorAll<HTMLInputElement>(
+          'input[type="date"][data-min-date="true"]',
+        )
+        .forEach((input) => {
+          input.min = today;
+        });
+
+      document
+        .querySelectorAll<HTMLInputElement>(
+          'input[type="datetime-local"][data-min-date-time="current"]',
+        )
+        .forEach((input) => {
+          input.min = currentDateTime;
+        });
+    };
+
+    updateMinimumDates();
+  }, []);
   const errors: Errors = errorState.tab === tab ? errorState.items : {};
 
   const activeTab = tripTabs.find((t) => t.id === tab) ?? tripTabs[0];
