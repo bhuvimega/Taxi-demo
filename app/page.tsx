@@ -1,4 +1,4 @@
-import HeroBooking from "@/components/home/HeroBooking";
+import HeroBookings from "@/components/home/HeroBookings";
 import ServicesSection from "@/components/home/ServicesSection";
 import TrustFeatures from "@/components/home/TrustFeatures";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
@@ -12,7 +12,8 @@ import CtaBanner from "@/components/home/CtaBanner";
 export default function HomePage() {
   return (
     <>
-      <HeroBooking />
+      <HeroBookings />
+
       <TrustFeatures />
       <ServicesSection />
       <WhyChooseUs />

@@ -179,10 +179,18 @@
   @apply mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8;
 }
 
+
+/* Narrow reading column (About, legal pages, FAQ …). 864px box = 832px of content. */
+@utility narrow-container {
+  @apply mx-auto w-full max-w-[864px] px-4;
+}
+
+
 /* Keyboard focus ring. Add to any link / button. */
 @utility focus-ring {
   @apply outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
 }
+
 
 /* --------------------------------------------------------------------------
    5. COMPONENT CLASSES
@@ -225,7 +233,7 @@
 
   /* ---- Cards ------------------------------------------------------------ */
   .feature-card {
-    @apply flex h-full min-w-0 flex-col rounded-2xl border border-on-brand bg-card p-5 text-card-foreground sm:p-6;
+    @apply flex h-full min-w-0 flex-col rounded-2xl  bg-card p-5 text-card-foreground sm:p-6;
   }
   .feature-card-title {
     @apply mt-4 text-base font-semibold leading-6;
@@ -239,7 +247,7 @@
 
   /* Numbered step card (How it works) */
   .step-card {
-    @apply min-w-0 rounded-2xl border bg-muted p-6;
+    @apply min-w-0 rounded-2xl bg-muted p-6;
   }
   .step-number {
     @apply text-[40px] font-extrabold leading-none tracking-tight text-input select-none;
@@ -271,7 +279,7 @@
 
   /* Card with a full-width image on top (fleet). Put your own padding on the body. */
   .media-card {
-    @apply flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-on-brand bg-card text-card-foreground;
+    @apply flex h-full min-w-0 flex-col overflow-hidden rounded-2xl  bg-card text-card-foreground;
   }
 
   /* ---- Icon tile  (size-11 by default, override with size-10 etc.) ------ */
@@ -298,10 +306,13 @@
     @apply bg-brand-dark text-white hover:bg-brand-hover disabled:bg-input disabled:text-muted-foreground;
   }
   .btn-highlight {
-    @apply border border-on-brand bg-highlight text-on-brand hover:brightness-95;
+    @apply  bg-highlight text-on-brand hover:brightness-95;
+  }
+  .btn-accent {
+    @apply bg-highlight text-on-brand hover:brightness-95;
   }
   .btn-light {
-    @apply border border-on-brand bg-white text-on-brand hover:bg-brand-light;
+    @apply bg-white text-on-brand hover:bg-brand-light;
   }
   .btn-pill {
     @apply h-10 rounded-full px-5 text-sm;
@@ -376,4 +387,182 @@
   .field-icon-end {
     @apply right-3 text-subtle;
   }
+  
+/* Testimonials slider */
+.testimonials-swiper {
+  padding-bottom: 3rem;
+}
+
+/* Navigation arrows */
+.testimonials-swiper .swiper-button-prev,
+.testimonials-swiper .swiper-button-next {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  background: white;
+  color: #1f2937;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
+}
+
+.testimonials-swiper .swiper-button-prev::after,
+.testimonials-swiper .swiper-button-next::after {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Pagination dots */
+.testimonials-swiper .swiper-pagination {
+  bottom: 0;
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  opacity: 0.4;
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Smaller arrows on mobile */
+@media (max-width: 639px) {
+  .testimonials-swiper .swiper-button-prev,
+  .testimonials-swiper .swiper-button-next {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Force custom testimonial slider arrows */
+.testimonials-swiper.swiper {
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.testimonials-swiper.swiper .swiper-button-prev,
+.testimonials-swiper.swiper .swiper-button-next {
+  width: 38px !important;
+  height: 38px !important;
+  margin-top: 0 !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 15%) !important;
+  color: #222222 !important;
+  z-index: 10;
+}
+
+.testimonials-swiper.swiper .swiper-button-prev::after,
+.testimonials-swiper.swiper .swiper-button-next::after {
+  font-family: swiper-icons !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+
+.testimonials-swiper.swiper .swiper-button-prev {
+  left: 8px !important;
+  right: auto !important;
+}
+
+.testimonials-swiper.swiper .swiper-button-next {
+  right: 8px !important;
+  left: auto !important;
+}
+
+.testimonials-swiper.swiper .swiper-button-prev:hover,
+.testimonials-swiper.swiper .swiper-button-next:hover {
+  background: #65bd45 !important;
+  color: #ffffff !important;
+  border-color: #65bd45 !important;
+}
+
+.testimonials-swiper.swiper .swiper-button-prev.swiper-button-disabled,
+.testimonials-swiper.swiper .swiper-button-next.swiper-button-disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed;
+}
+/* Reduce testimonial slider arrow size */
+.swiper-button-next,
+.swiper-button-prev {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+/* Reduce the arrow icon size */
+.swiper-button-next svg,
+.swiper-button-prev svg {
+    width: 8px !important;
+    height: 14px !important;
+}
+ /* ---- Booking tabs (icon + label, green underline on the active one) -- */
+  .booking-tabs {
+    @apply flex overflow-x-auto border-b bg-muted px-2 sm:px-4;
+    scrollbar-width: none;
+  }
+  .booking-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .booking-tab {
+    @apply -mb-px flex shrink-0 items-center gap-2 border-b-2 border-transparent px-3 py-4 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground focus-ring focus-visible:ring-inset focus-visible:ring-offset-0 sm:px-4;
+  }
+  .booking-tab[aria-selected="true"] {
+    @apply border-brand text-foreground;
+  }
+
+  /* Round "swap From / To" button */
+  .swap-btn {
+    @apply absolute z-10 flex size-9 items-center justify-center rounded-full border border-input bg-card text-brand-text shadow-sm transition-colors hover:bg-brand-light focus-ring;
+  }
+
+  /* ---- Form fields  (see components/common/Field.tsx) ------------------- */
+  .field-label {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-wide text-muted-foreground;
+  }
+  .field-control {
+    @apply relative block;
+  }
+  .field-control > :is(input, select, textarea) {
+    @apply h-12 w-full min-w-0 rounded-xl border border-input bg-card px-3 text-sm text-body outline-none placeholder:text-subtle focus:border-brand;
+  }
+  .field-control[data-icon] > :is(input, select) {
+    @apply pl-9;
+  }
+  .field-control[data-select] > select {
+    @apply appearance-none pr-9;
+  }
+  .field-control[data-invalid] > :is(input, select) {
+    @apply border-destructive;
+  }
+  .field-error {
+    @apply mt-1 block text-xs text-destructive;
+  }
+  /* hide Chrome's built-in arrow on inputs that use a <datalist> */
+  .field-control > input[list]::-webkit-calendar-picker-indicator {
+    display: none !important;
+  }
+  .field-icon {
+    @apply pointer-events-none absolute top-1/2 -translate-y-1/2;
+  }
+  .field-icon-start {
+    @apply left-3 text-brand;
+  }
+  .field-icon-end {
+    @apply right-3 text-subtle;
+  }
+
+  /* White app-store button (always light, also in dark mode) */
+  .store-btn {
+    @apply inline-flex h-12 items-center gap-3 rounded-xl bg-white px-4 text-on-brand transition-colors hover:bg-brand-light focus-ring;
+  }
+
+  /* Plain bordered white card (search results, info panels) */
+  .panel {
+    @apply rounded-2xl border bg-card text-card-foreground;
+  }
+
 }

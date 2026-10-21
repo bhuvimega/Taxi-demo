@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { navItems } from "@/config/site";
+import { usePathname } from "next/navigation";
+import { scrollToBooking, useTrip } from "@/components/providers/TripProvider";
+import { navItems, siteConfig } from "@/config/site";
 
 type NavLinksProps = {
   variant?: "desktop" | "mobile";
@@ -12,20 +14,41 @@ export default function NavLinks({
   variant = "desktop",
   onNavigate,
 }: NavLinksProps) {
+  const pathname = usePathname();
+  const { trip, selectTrip } = useTrip();
+  const onHome = pathname === "/";
+
   return (
     <>
-      {navItems.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          onClick={onNavigate}
-          className={
-            variant === "mobile" ? "nav-link nav-link-mobile" : "nav-link"
-          }
-        >
-          {item.label}
-        </Link>
-      ))}
+      {navItems.map((item, index) => {
+        const isActive = onHome && trip === item.trip;
+
+        return (
+          <Link
+            key={`${String(item.trip)}-${index}`}
+            href={siteConfig.routes.booking}
+            onClick={(event) => {
+              selectTrip(item.trip);
+              onNavigate?.();
+
+              if (onHome) {
+                event.preventDefault();
+
+                window.setTimeout(
+                  scrollToBooking,
+                  variant === "mobile" ? 150 : 0,
+                );
+              }
+            }}
+            aria-current={isActive ? "page" : undefined}
+            className={
+              variant === "mobile" ? "nav-link nav-link-mobile" : "nav-link"
+            }
+          >
+            {item.label}
+          </Link>
+        );
+      })}
     </>
   );
 }

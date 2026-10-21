@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { TripProvider } from "@/components/providers/TripProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
@@ -23,9 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="flex min-h-dvh flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <TripProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </TripProvider>
       </body>
     </html>
   );
