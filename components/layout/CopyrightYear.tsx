@@ -1,13 +1,8 @@
-"use client";
+import { cacheLife } from "next/cache";
 
-import { useEffect, useState } from "react";
+export default async function CopyrightYear() {
+  "use cache";
+  cacheLife("days");
 
-export default function CopyrightYear() {
-  const [year, setYear] = useState<number | null>(null);
-
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
-
-  return <>{year ?? 2026}</>;
+  return <>{new Date().getFullYear()}</>;
 }
