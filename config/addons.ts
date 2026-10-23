@@ -2,7 +2,7 @@
 
 export const GST_RATE = 0.05;
 export const PART_PAY_PERCENT = 25;
-export const FREE_CANCELLATION_HOURS = 6;
+export const FREE_CANCELLATION_HOURS = 1;
 
 export type Addon = {
   id: string;

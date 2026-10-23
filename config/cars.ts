@@ -11,7 +11,7 @@ export const cars = [
     rating: 4.6,
     ratePerKm: 11,
     discountPercent: 10,
-    image: "/images/fleet-sedan.webp",
+    image: "/images/fleet-sedan.jpg",
   },
   {
     id: "sedan",
@@ -21,7 +21,7 @@ export const cars = [
     rating: 4.7,
     ratePerKm: 13,
     discountPercent: 10,
-    image: "/images/fleet-sedan.webp",
+    image: "/images/fleet-sedan.jpg",
   },
   {
     id: "suv",
@@ -31,7 +31,7 @@ export const cars = [
     rating: 4.7,
     ratePerKm: 17,
     discountPercent: 10,
-    image: "/images/fleet-suv.webp",
+    image: "/images/fleet-suv.jpg",
   },
   {
     id: "premium-suv",
@@ -41,7 +41,7 @@ export const cars = [
     rating: 4.8,
     ratePerKm: 22,
     discountPercent: 10,
-    image: "/images/fleet-premium-suv.webp",
+    image: "/images/fleet-premium-suv.jpg",
   },
 ] as const;
 
