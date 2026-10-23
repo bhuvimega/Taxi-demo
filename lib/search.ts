@@ -7,6 +7,11 @@ export type SearchQuery = {
   type: TripType;
   /** Big heading, e.g. "Annur - Coimbatore". */
   title: string;
+  /** Booking-page heading, e.g. "Coimbatore → Chennai". */
+  routeTitle: string;
+  pickupLocation: string;
+  /** Empty for local rentals. */
+  dropLocation: string;
   /** "One way", "Round trip" … */
   tripLabel: string;
   pickupDate: string; // YYYY-MM-DD
@@ -89,6 +94,9 @@ export function parseSearch(raw: RawParams): SearchQuery | null {
     return {
       type,
       title: `${from} - ${to}`,
+      routeTitle: `${from} → ${to}`,
+      pickupLocation: from,
+      dropLocation: to,
       tripLabel: type === "one-way" ? "One way" : "Round trip",
       pickupDate: pickup.date,
       pickupTime: pickup.time,
@@ -108,6 +116,9 @@ export function parseSearch(raw: RawParams): SearchQuery | null {
     return {
       type,
       title: `Local rental · ${city}`,
+      routeTitle: `Local rental in ${city}`,
+      pickupLocation: city,
+      dropLocation: "",
       tripLabel: "Local rental",
       pickupDate: date,
       pickupTime: time,
@@ -117,11 +128,15 @@ export function parseSearch(raw: RawParams): SearchQuery | null {
   }
 
   const airport = first(raw.airport);
+  const address = first(raw.address) ?? "";
   const direction = first(raw.direction) === "pickup" ? "pickup" : "drop";
   if (!airport) return null;
   return {
     type,
     title: `${direction === "drop" ? "Drop to" : "Pickup from"} ${airport}`,
+    routeTitle: direction === "drop" ? `${address} → ${airport}` : `${airport} → ${address}`,
+    pickupLocation: direction === "drop" ? address : airport,
+    dropLocation: direction === "drop" ? airport : address,
     tripLabel: direction === "drop" ? "Airport drop" : "Airport pickup",
     pickupDate: date,
     pickupTime: time,
@@ -163,6 +178,14 @@ export const formatINR = (n: number) => `₹${new Intl.NumberFormat("en-IN").for
 
 /** "2026-10-20" → "20-10-2026" */
 export const formatDate = (iso: string) => iso.split("-").reverse().join("-");
+
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+/** "2026-10-22" → "22 October 2026" */
+export function formatDateLong(iso: string) {
+  const [y, m, d] = iso.split("-").map(Number);
+  return `${d} ${MONTHS[m - 1]} ${y}`;
+}
 
 /** "17:30" → "5:30 PM" */
 export function formatTime(hhmm: string) {

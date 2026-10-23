@@ -66,7 +66,11 @@ async function Results({ searchParams }: PageProps) {
 
             return (
               <li key={quote.car.id}>
-                <CarCard quote={quote} href={`/booking?${params.toString()}`} />
+                <CarCard
+                  quote={quote}
+                  href={`/booking?${params.toString()}`}
+                  tripType={query.type}
+                />
               </li>
             );
           })}
