@@ -1,7 +1,4 @@
-/**
- * Demo vehicle + pricing data for the search results page.
- * Replace with your API response when the backend is ready.
- */
+
 export const cars = [
   {
     id: "hatchback",

@@ -22,7 +22,7 @@ export const addons: Addon[] = [
 
 type Coupon = { label: string; percent?: number; maxOff?: number; flat?: number };
 
-/** Demo coupons. Replace with a server-side check when you have a backend. */
+
 export const coupons: Record<string, Coupon> = {
   WELCOME10: { label: "10% off (max ₹300)", percent: 10, maxOff: 300 },
   FLAT100: { label: "₹100 off", flat: 100 },
