@@ -34,6 +34,7 @@ export const footerGroups = [
     links: [
       { label: "About Us", href: "/about" },
       { label: "Contact", href: "/contact" },
+      { label: "Blog", href: "/blog" },
       { label: "FAQ", href: "/faq" },
       { label: "Sitemap", href: "/sitemap" },
     ],

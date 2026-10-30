@@ -3,7 +3,6 @@ import { LEGAL_LAST_UPDATED, type LegalDoc } from "./legalContent";
 
 /**
  * One layout for every legal page (Privacy, Terms, Cancellation …).
- * Pass a document from legalContent.ts — the design stays identical.
  */
 export default function LegalPage({ title, intro, sections }: LegalDoc) {
   return (
