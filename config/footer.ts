@@ -14,6 +14,7 @@ export const footerGroups = [
   {
     title: "Popular Routes",
     links: [
+      { label: "Bangalore to Chennai Cabs", href: "/routes/bangalore-to-chennai" },
       { label: "Mumbai to Pune Cabs", href: "/routes/mumbai-to-pune" },
       { label: "Bengaluru to Mysuru Cabs", href: "/routes/bengaluru-to-mysuru" },
       { label: "Delhi to Agra Cabs", href: "/routes/delhi-to-agra" },
@@ -33,8 +34,8 @@ export const footerGroups = [
     title: "Company",
     links: [
       { label: "About Us", href: "/about" },
-      { label: "Contact", href: "/contact" },
       { label: "Blog", href: "/blog" },
+      { label: "Contact", href: "/contact" },
       { label: "FAQ", href: "/faq" },
       { label: "Sitemap", href: "/sitemap" },
     ],

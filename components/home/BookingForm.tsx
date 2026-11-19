@@ -93,14 +93,12 @@ function validate(type: TripType, f: FormState): Errors {
   } else {
     if (!f.airport) e.airport = "Select an airport";
     if (!f.address.trim())
-      e.address =
-        f.trip === "drop" ? "Enter pickup address" : "Enter drop address";
+      e.address = f.trip === "drop" ? "Enter pickup address" : "Enter drop address";
   }
 
   if (!f.date) e.date = "Choose a pick up date";
   if (!f.time) e.time = "Choose a pick up time";
-  else if (f.date && isPast(`${f.date}T${f.time}`))
-    e.time = "Time is in the past";
+  else if (f.date && isPast(`${f.date}T${f.time}`)) e.time = "Time is in the past";
 
   return e;
 }
@@ -132,21 +130,19 @@ function toSearchParams(type: TripType, f: FormState) {
 /* Component                                                           */
 /* ------------------------------------------------------------------ */
 
-export default function BookingForm() {
+/** `defaults` pre-fills the cities, e.g. on a route page ("Bengaluru" → "Chennai"). */
+export default function BookingForm({ defaults }: { defaults?: { from?: string; to?: string } } = {}) {
   const router = useRouter();
   const uid = useId();
   const citiesId = `${uid}-cities`;
 
   // The selected tab is shared with the header menu (see TripProvider).
   const { trip: tab, selectTrip } = useTrip();
-  const [form, setForm] = useState<FormState>(initialState);
+  const [form, setForm] = useState<FormState>({ ...initialState, ...defaults });
 
   // Errors remember which tab they belong to, so switching tab (from the form
   // OR from the header menu) never shows another tab's messages.
-  const [errorState, setErrorState] = useState<{
-    tab: TripType;
-    items: Errors;
-  }>({
+  const [errorState, setErrorState] = useState<{ tab: TripType; items: Errors }>({
     tab: "one-way",
     items: {},
   });
@@ -159,10 +155,7 @@ export default function BookingForm() {
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       const value = e.target.value;
       setForm((prev) => ({ ...prev, [key]: value }));
-      setErrorState((prev) => ({
-        ...prev,
-        items: { ...prev.items, [key]: undefined },
-      }));
+      setErrorState((prev) => ({ ...prev, items: { ...prev.items, [key]: undefined } }));
     };
 
   const swapLocations = () =>
@@ -175,8 +168,7 @@ export default function BookingForm() {
     const index = tripTabs.findIndex((t) => t.id === tab);
     let next = index;
     if (e.key === "ArrowRight") next = (index + 1) % tripTabs.length;
-    else if (e.key === "ArrowLeft")
-      next = (index - 1 + tripTabs.length) % tripTabs.length;
+    else if (e.key === "ArrowLeft") next = (index - 1 + tripTabs.length) % tripTabs.length;
     else return;
 
     e.preventDefault();
@@ -197,12 +189,7 @@ export default function BookingForm() {
 
   const pickupDateField = (
     <Field label="Pick up date" icon={CalendarDays} error={errors.date}>
-      <input
-        type="date"
-        ref={minDate}
-        value={form.date}
-        onChange={set("date")}
-      />
+      <input type="date" ref={minDate} value={form.date} onChange={set("date")} />
     </Field>
   );
 
@@ -277,9 +264,7 @@ export default function BookingForm() {
           id={`${uid}-panel`}
           aria-labelledby={`${uid}-tab-${tab}`}
         >
-          <p className="text-sm text-muted-foreground">
-            {activeTab.description}
-          </p>
+          <p className="text-sm text-muted-foreground">{activeTab.description}</p>
 
           <datalist id={citiesId}>
             {popularCities.map((city) => (
@@ -308,11 +293,7 @@ export default function BookingForm() {
                   aria-label="Swap pickup and drop"
                   className="swap-btn right-3 top-[80px] -translate-y-1/2 sm:left-1/2 sm:right-auto sm:top-12 sm:-translate-x-1/2"
                 >
-                  <ArrowLeftRight
-                    size={16}
-                    className="rotate-90 sm:rotate-0"
-                    aria-hidden="true"
-                  />
+                  <ArrowLeftRight size={16} className="rotate-90 sm:rotate-0" aria-hidden="true" />
                 </button>
 
                 <Field
@@ -332,11 +313,7 @@ export default function BookingForm() {
                 </Field>
               </div>
 
-              <Field
-                label="Pickup date & time"
-                icon={CalendarDays}
-                error={errors.pickupAt}
-              >
+              <Field label="Pickup date & time" icon={CalendarDays} error={errors.pickupAt}>
                 <input
                   type="datetime-local"
                   ref={minDateTime()}
@@ -416,8 +393,7 @@ export default function BookingForm() {
         </button>
 
         <p className="mt-3 text-center text-xs leading-5 text-muted-foreground">
-          Transparent platform-calculated fare · Free cancellation up to 6 hrs
-          before pickup
+          Transparent platform-calculated fare · Free cancellation up to 6 hrs before pickup
         </p>
       </div>
     </form>

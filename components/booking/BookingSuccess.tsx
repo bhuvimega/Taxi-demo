@@ -60,7 +60,7 @@ export default function BookingSuccess({
 
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <Link
-          href={siteConfig.routes.trackRide}
+          href={`${siteConfig.routes.trackRide}?ref=${encodeURIComponent(reference)}`}
           className="btn btn-outline btn-pill h-11"
         >
           Track ride

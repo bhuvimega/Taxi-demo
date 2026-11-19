@@ -7,25 +7,30 @@ import { navItems, siteConfig } from "@/config/site";
 
 type NavLinksProps = {
   variant?: "desktop" | "mobile";
+  /** Called after a link is clicked (the mobile menu uses it to close). */
   onNavigate?: () => void;
 };
 
-export default function NavLinks({
-  variant = "desktop",
-  onNavigate,
-}: NavLinksProps) {
+/**
+ * Header menu. Clicking an item:
+ *   1. selects that trip tab in the booking form (shared state), and
+ *   2. on the home page: smoothly scrolls down to the form,
+ *      on any other page: goes to "/#booking" (the browser scrolls there).
+ */
+export default function NavLinks({ variant = "desktop", onNavigate }: NavLinksProps) {
   const pathname = usePathname();
   const { trip, selectTrip } = useTrip();
-  const onHome = pathname === "/";
+  // Pages that have their own booking form: the menu selects a tab there instead of leaving the page.
+  const onHome = pathname === "/" || pathname.startsWith("/routes/");
 
   return (
     <>
-      {navItems.map((item, index) => {
+      {navItems.map((item) => {
         const isActive = onHome && trip === item.trip;
 
         return (
           <Link
-            key={`${String(item.trip)}-${index}`}
+            key={item.trip}
             href={siteConfig.routes.booking}
             onClick={(event) => {
               selectTrip(item.trip);
@@ -33,17 +38,12 @@ export default function NavLinks({
 
               if (onHome) {
                 event.preventDefault();
-
-                window.setTimeout(
-                  scrollToBooking,
-                  variant === "mobile" ? 150 : 0,
-                );
+                // Mobile: wait for the menu to close and unlock page scrolling.
+                window.setTimeout(scrollToBooking, variant === "mobile" ? 150 : 0);
               }
             }}
-            aria-current={isActive ? "page" : undefined}
-            className={
-              variant === "mobile" ? "nav-link nav-link-mobile" : "nav-link"
-            }
+            aria-current={isActive ? "true" : undefined}
+            className={variant === "mobile" ? "nav-link nav-link-mobile" : "nav-link"}
           >
             {item.label}
           </Link>

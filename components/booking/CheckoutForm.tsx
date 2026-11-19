@@ -10,6 +10,7 @@ import {
   type ContactValues,
   type PaymentOption,
 } from "@/lib/booking";
+import { newReference, saveBooking } from "@/lib/bookings";
 import type { Quote, SearchQuery } from "@/lib/search";
 import AddonsCard from "./AddonsCard";
 import BookingSuccess from "./BookingSuccess";
@@ -118,11 +119,24 @@ export default function CheckoutForm({
       return;
     }
 
-    setConfirmation({
-      reference: `GCX-${crypto.randomUUID().slice(0, 8).toUpperCase()}`,
-      paidNow: payNow(payment, totals),
+    const reference = newReference();
+    const paidNow = payNow(payment, totals);
+
+    // Save it in this browser so "Track ride" can find it (demo storage).
+    saveBooking({
+      reference,
+      createdAt: Date.now(),
+      routeTitle: query.routeTitle,
+      tripLabel: query.tripLabel,
+      carName: quote.car.name,
+      pickupAt: `${query.pickupDate}T${query.pickupTime}`,
+      pickupLocation: contact.pickup,
+      dropLocation: contact.drop,
       total: totals.total,
+      paidNow,
     });
+
+    setConfirmation({ reference, paidNow, total: totals.total });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
